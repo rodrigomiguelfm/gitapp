@@ -7,6 +7,9 @@
         "dev": "node ./scripts/init.js",
         "build": "node ./scripts/init.js build",
         "start": "cross-env NODE_ENV=production node ./server/index.js",
+        "test": "cross-env NODE_ENV=test jest",
+        "test:e2e:open": "cypress open",
+        "test:e2e:run": "cypress run",
         "lighthouse": "lhci autorun",
         "lint": "eslint .",
         "prettier": "prettier --write ."
@@ -22,11 +25,14 @@
         "sqlite3": "^5.0.2"
     },
     "devDependencies": {
+        "cypress": "^7.1.0",
         "detect-port": "^1.3.0",
         "eslint": "^7.24.0",
         "cross-env": "^7.0.3",
         "@lhci/cli": "^0.7.1",
         "babel-jest": "^26.6.3",
+        "jest": "^26.6.3",
+        "jest-environment-jsdom-sixteen": "^1.0.3",
         "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
         "eslint-config-prettier": "^8.2.0",
         "eslint-plugin-jest": "^24.3.5",
