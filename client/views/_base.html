@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Gitapp</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css"
+        />
+        <script>
+            function calcVH() {
+                document
+                    .querySelector(':root')
+                    .style.setProperty('--vh', window.innerHeight / 100 + 'px');
+            }
+            window.addEventListener('resize', calcVH);
+            calcVH();
+        </script>
+        <link rel="stylesheet" href="/css/main.css" />
+    </head>
+    <body class="app">
+        <nav class="header">
+            <img src="/assets/logo.svg" alt="logo" width="40" height="40" />
+            <span class="ml-2 is-size-4">Gitapp</span>
+        </nav>
+
+        <nav class="aside">
+            <div class="aside-item">
+                <img src="/assets/home.svg" alt="home logo" />
+                <span class="aside-item-text">Resumen</span>
+            </div>
+
+            <div class="aside-item">
+                <img src="/assets/income.svg" alt="income logo" />
+                <span class="aside-item-text">Ingresos</span>
+            </div>
+
+            <div class="aside-item">
+                <img src="/assets/expense.svg" alt="expense logo" />
+                <span class="aside-item-text">Egresos</span>
+            </div>
+        </nav>
+
+        <main class="main px-4 mt-4">{% block main %} {% endblock %}</main>
+
+        {% block js %} {% endblock %}
+        <script src="https://mozilla.github.io/nunjucks/files/nunjucks-slim.min.js"></script>
+    </body>
+</html>
