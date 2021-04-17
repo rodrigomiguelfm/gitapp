@@ -6,7 +6,7 @@
     "scripts": {
         "dev": "node ./scripts/init.js",
         "build": "node ./scripts/init.js build",
-        "start": "cross-env NODE_ENV=production node ./server/src/index.js",
+        "start": "cross-env NODE_ENV=production node ./server/index.js",
         "lighthouse": "lhci autorun",
         "lint": "eslint .",
         "prettier": "prettier --write ."
