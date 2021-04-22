@@ -2,6 +2,8 @@ const Sequelize = require('sequelize');
 
 const db = require('../db.js');
 
+const MovementType = require('./movementType.js');
+
 
 /**
  * Modelo de movimiento.
@@ -22,7 +24,8 @@ const Movement = db.define(
         },
         type: {
             type: Sequelize.STRING,
-            allowNull: false
+            allowNull: false,
+            values: MovementType.types
         },
         category: {
             type: Sequelize.STRING,
@@ -50,6 +53,10 @@ const getAllMovements = () => {
  *
  */
 const createMovement = (data) => {
+    if (!Object.prototype.hasOwnProperty.call(data, 'type')) {
+        data = { ...data, type: MovementType.EXPENSE };
+    }
+
     return Movement.create(data);
 };
 
