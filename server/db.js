@@ -8,7 +8,7 @@ const sequelize = new Sequelize({
     logging: inTest ? false : console.log,
     storage: inTest
         ? ':memory:'
-        : path.join(__dirname, '..', 'database.sqlite'),
+        : path.join(__dirname, '..', 'server/database.sqlite'),
 });
 
 module.exports = sequelize;
