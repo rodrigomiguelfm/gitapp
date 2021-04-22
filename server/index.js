@@ -11,6 +11,7 @@ const nunjucks = require('nunjucks');
 const models = require('./models/index.js');
 
 // Rutas
+const movementRouter = require('./routes/movement.js');
 const viewRouter = require('./routes/view.js');
 
 const client = path.resolve(__dirname, '..', 'client');
@@ -38,6 +39,9 @@ async function startServer(port = process.env.PORT) {
 
     // rutas de la vista
     app.use('/', viewRouter);
+
+    // Rutas de la api
+    app.use('/api/v1/movements', movementRouter);
 
     return new Promise(function (resolve) {
         const server = app.listen(port, function () {
