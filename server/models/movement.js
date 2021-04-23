@@ -39,8 +39,9 @@ const Movement = db.define(
  * Obtener todos los movimientos de la base de datos.
  *
  */
-const getAllMovements = () => {
-    return Movement.findAll({
+const getAllMovements = (limit) => {
+    return Movement.findAndCountAll({
+        limit: limit,
         attributes: {
             exclude: ['createdAt', 'updatedAt'],
         }
