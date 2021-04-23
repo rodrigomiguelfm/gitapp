@@ -10,13 +10,22 @@ express().use(paginate.middleware(10, 50));
  *
  */
 router.get('/', function (req, res, next) {
-    const limit = 'limit' in req.query && req.query.limit
-        ? req.query.limit
-        : 5
+    let limit = 5
 
-    const page = 'page' in req.query && req.query.page
-        ? req.query.page
-        : 1
+    let page = 1
+
+    if ('page' in req.query && req.query.page) {
+        page = req.query.page
+    } else {
+        req.query.page = page
+    }
+
+    if ('limit' in req.query && req.query.limit) {
+        limit = req.query.limit
+    } else {
+        req.query.limit = limit
+    }
+
     MovementModel.getAll(limit)
         .then(results => {
             const pageCount = Math.ceil(results.count / limit);
