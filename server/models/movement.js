@@ -53,12 +53,8 @@ const getAllMovements = (limit) => {
  * Parámetro data: JSON con los atributos a crear.
  *
  */
-const createMovement = (data) => {
-    if (!Object.prototype.hasOwnProperty.call(data, 'type')) {
-        data = { ...data, type: MovementType.EXPENSE };
-    }
-
-    return Movement.create(data);
+const createMovement = ({date="01/01/2021", amount=0.00, type=MovementType.EXPENSE, category=""} = {}) => {
+    return Movement.create({date, amount, type, category});
 };
 
 
