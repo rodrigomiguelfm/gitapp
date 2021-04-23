@@ -3,7 +3,6 @@ const paginate = require('express-paginate');
 const MovementModel = require('../models/movement');
 const router = express.Router();
 
-express().use(paginate.middleware(10, 50));
 
 /**
  * Endpoint para obtener todos los movimientos.
@@ -26,7 +25,7 @@ router.get('/', function (req, res, next) {
         req.query.limit = limit
     }
 
-    MovementModel.getAll(limit)
+    MovementModel.getAll(limit, req.skip)
         .then(results => {
             const pageCount = Math.ceil(results.count / limit);
 

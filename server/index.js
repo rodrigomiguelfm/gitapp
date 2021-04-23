@@ -2,6 +2,7 @@ const path = require('path');
 
 const morgan = require('morgan');
 const express = require('express');
+const paginate = require('express-paginate');
 const bodyParser = require('body-parser');
 const detectPort = require('detect-port');
 
@@ -29,6 +30,7 @@ async function startServer(port = process.env.PORT) {
 
     app.use(bodyParser.json());
     app.use(express.static(client));
+    app.use(paginate.middleware(10, 50));
     app.set('views', views);
     app.set('view engine', 'html');
 
