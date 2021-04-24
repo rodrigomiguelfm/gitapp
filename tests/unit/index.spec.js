@@ -1,5 +1,4 @@
 const MovementModel = require('../../server/models/movement.js');
-
 const MovementType = require('../../server/models/movementType.js');
 
 

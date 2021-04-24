@@ -8,7 +8,7 @@ const router = express.Router();
  * Endpoint para obtener todos los movimientos.
  *
  */
-router.get('/', function (req, res, next) {
+router.get('/', function (req, res) {
     MovementModel.getAll(req.query.limit, req.skip)
         .then(results => {
             const pageCount = Math.ceil(results.count / req.query.limit);
