@@ -30,7 +30,7 @@ async function startServer(port = process.env.PORT) {
 
     app.use(bodyParser.json());
     app.use(express.static(client));
-    app.use(paginate.middleware(10, 50));
+    app.use(paginate.middleware(5, 50));
     app.set('views', views);
     app.set('view engine', 'html');
 

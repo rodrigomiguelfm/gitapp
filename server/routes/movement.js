@@ -9,33 +9,17 @@ const router = express.Router();
  *
  */
 router.get('/', function (req, res, next) {
-    let limit = 5
-
-    let page = 1
-
-    if ('page' in req.query && req.query.page) {
-        page = req.query.page
-    } else {
-        req.query.page = page
-    }
-
-    if ('limit' in req.query && req.query.limit) {
-        limit = req.query.limit
-    } else {
-        req.query.limit = limit
-    }
-
-    MovementModel.getAll(limit, req.skip)
+    MovementModel.getAll(req.query.limit, req.skip)
         .then(results => {
-            const pageCount = Math.ceil(results.count / limit);
+            const pageCount = Math.ceil(results.count / req.query.limit);
 
-            const pages = paginate.getArrayPages(req)(3, pageCount, page)
+            const pages = paginate.getArrayPages(req)(3, pageCount, req.query.page)
 
             res.status(200).send({
                 movements: results.rows,
                 pages: pages,
                 next: paginate.hasNextPages(req)(pageCount)
-                    ? pages[page].url
+                    ? pages[req.query.page].url
                     : null
             })
         })
