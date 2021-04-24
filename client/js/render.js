@@ -1,4 +1,8 @@
+import { monefy } from './utils.js';
+
 const env = new nunjucks.Environment();
+
+env.addFilter('monefy', monefy);
 
 export function getRefs(context) {
     const refs = {};
