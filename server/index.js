@@ -5,7 +5,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const detectPort = require('detect-port');
 
-const nunjucks = require('nunjucks');
+const nunjucks = require('./utils/nunjucks.js');
 
 // Modelos
 const models = require('./models/index.js');
@@ -31,9 +31,9 @@ async function startServer(port = process.env.PORT) {
     app.set('views', views);
     app.set('view engine', 'html');
 
-    nunjucks.configure(path.resolve(client, 'views'), {
-        autoescape: true,
+    nunjucks.init({
         express: app,
+        viewsPath: path.resolve(client, 'views'),
     });
 
     // rutas de la vista
