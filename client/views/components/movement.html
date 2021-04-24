@@ -1,0 +1,32 @@
+{% macro render(movement) %}
+<div class="level is-mobile">
+    <div class="level-left">
+        <div class="level-item">
+            <img
+                src="{{ '/assets/income.svg' if movement.type == 'income' else '/assets/expense.svg' }}"
+                class="level-item"
+                alt=""
+                width="48px"
+            />
+        </div>
+        <div class="level-item">
+            <div>
+                <p class="has-text-weight-medium">{{ movement.category }}</p>
+                <p class="has-text-weight-light is-size-7">
+                    {{ movement.date }}
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="level-right">
+        <div class="level-item">
+            <p
+                class="{{ 'has-text-success' if movement.type == 'income' else 'has-text-danger' }} is-size-3"
+            >
+                $ {{ movement.amount }}
+            </p>
+        </div>
+    </div>
+</div>
+{% endmacro %}
