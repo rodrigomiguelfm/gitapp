@@ -2,6 +2,7 @@ const path = require('path');
 
 const morgan = require('morgan');
 const express = require('express');
+const paginate = require('express-paginate');
 const bodyParser = require('body-parser');
 const detectPort = require('detect-port');
 
@@ -11,6 +12,7 @@ const nunjucks = require('nunjucks');
 const models = require('./models/index.js');
 
 // Rutas
+const movementRouter = require('./routes/movement.js');
 const viewRouter = require('./routes/view.js');
 
 const client = path.resolve(__dirname, '..', 'client');
@@ -28,6 +30,7 @@ async function startServer(port = process.env.PORT) {
 
     app.use(bodyParser.json());
     app.use(express.static(client));
+    app.use(paginate.middleware(5, 50));
     app.set('views', views);
     app.set('view engine', 'html');
 
@@ -38,6 +41,9 @@ async function startServer(port = process.env.PORT) {
 
     // rutas de la vista
     app.use('/', viewRouter);
+
+    // Rutas de la api
+    app.use('/api/v1/movements', movementRouter);
 
     return new Promise(function (resolve) {
         const server = app.listen(port, function () {
