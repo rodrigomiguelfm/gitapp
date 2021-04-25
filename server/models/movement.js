@@ -4,7 +4,6 @@ const db = require('../db.js');
 
 const MovementType = require('./movementType.js');
 
-
 /**
  * Modelo de movimiento.
  *
@@ -25,12 +24,12 @@ const Movement = db.define(
         type: {
             type: Sequelize.STRING,
             allowNull: false,
-            values: MovementType.types
+            values: MovementType.types,
         },
         category: {
             type: Sequelize.STRING,
             allowNull: false,
-        }
+        },
     },
     { tableName: 'Movement' }
 );
@@ -39,13 +38,23 @@ const Movement = db.define(
  * Obtener todos los movimientos de la base de datos.
  *
  */
-const getAllMovements = (limit, skip) => {
+const getAllMovements = (limit, skip, type) => {
+    let where = {};
+
+    if (type) {
+        where = {
+            ...where,
+            type: type,
+        };
+    }
+
     return Movement.findAndCountAll({
         limit: limit,
         offset: skip,
         attributes: {
             exclude: ['createdAt', 'updatedAt'],
-        }
+        },
+        where: where,
     });
 };
 
@@ -54,10 +63,14 @@ const getAllMovements = (limit, skip) => {
  * Parámetro data: JSON con los atributos a crear.
  *
  */
-const createMovement = ({date="01/01/2021", amount=0.00, type=MovementType.EXPENSE, category=""} = {}) => {
-    return Movement.create({date, amount, type, category});
+const createMovement = ({
+    date = '01/01/2021',
+    amount = 0.0,
+    type = MovementType.EXPENSE,
+    category = '',
+} = {}) => {
+    return Movement.create({ date, amount, type, category });
 };
-
 
 const MovementModel = {
     Movement: Movement,
