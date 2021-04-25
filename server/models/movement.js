@@ -4,7 +4,6 @@ const db = require('../db.js');
 
 const MovementType = require('./movementType.js');
 
-
 /**
  * Modelo de movimiento.
  *
@@ -25,12 +24,12 @@ const Movement = db.define(
         type: {
             type: Sequelize.STRING,
             allowNull: false,
-            values: MovementType.types
+            values: MovementType.types,
         },
         category: {
             type: Sequelize.STRING,
             allowNull: false,
-        }
+        },
     },
     { tableName: 'Movement' }
 );
@@ -45,7 +44,7 @@ const getAllMovements = (limit, skip) => {
         offset: skip,
         attributes: {
             exclude: ['createdAt', 'updatedAt'],
-        }
+        },
     });
 };
 
@@ -54,15 +53,43 @@ const getAllMovements = (limit, skip) => {
  * Parámetro data: JSON con los atributos a crear.
  *
  */
-const createMovement = ({date="01/01/2021", amount=0.00, type=MovementType.EXPENSE, category=""} = {}) => {
-    return Movement.create({date, amount, type, category});
+const createMovement = ({
+    date = '01/01/2021',
+    amount = 0.0,
+    type = MovementType.EXPENSE,
+    category = '',
+} = {}) => {
+    return Movement.create({ date, amount, type, category });
 };
 
+/**
+ * Modificar un movimiento ya existente.
+ * Parámetro id: id a buscar en la base de datos.
+ * Parámetro data: JSON con los atributos a crear.
+ *
+ */
+const updateMovement = (
+    id,
+    {
+        date = '01/01/2021',
+        amount = 0.0,
+        type = MovementType.EXPENSE,
+        category = '',
+    } = {}
+) => {
+    return Movement.findOne({ where: { id: id } }).then((movement) => {
+        if (movement != null) {
+            return movement.update({ date, amount, type, category });
+        }
+        return null;
+    });
+};
 
 const MovementModel = {
     Movement: Movement,
     getAll: getAllMovements,
     create: createMovement,
+    update: updateMovement,
 };
 
 module.exports = MovementModel;
