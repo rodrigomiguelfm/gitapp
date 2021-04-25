@@ -29,4 +29,15 @@ router.get('/', function (req, res) {
         });
 });
 
+router.post('/', function (req, res) {
+    MovementModel.create(req.body)
+        .then((data) => {
+            res.status(201).send(data);
+        })
+        .catch((_) => {
+            console.log(_);
+            res.status(500).send('Error al crear movimiento');
+        })
+});
+
 module.exports = router;

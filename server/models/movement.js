@@ -55,6 +55,8 @@ const getAllMovements = (limit, skip) => {
  *
  */
 const createMovement = ({date="01/01/2021", amount=0.00, type=MovementType.EXPENSE, category=""} = {}) => {
+    date = new Date()
+
     return Movement.create({date, amount, type, category});
 };
 

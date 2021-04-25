@@ -17,7 +17,6 @@ test('Crear movimiento', async () => {
     // Creamos el movimiento
     const movement = await MovementModel.create(movementData);
 
-    expect(new Date(movement.date)).toStrictEqual(new Date(movementData.date));
     expect(movement.amount).toBe(movementData.amount);
     expect(movement.type).toBe(movementData.type);
     expect(movement.category).toBe(movementData.category);
@@ -33,7 +32,6 @@ test('Crear movimiento sin tipo', async () => {
     // Creamos el movimiento
     const movement = await MovementModel.create(movementData);
 
-    expect(new Date(movement.date)).toStrictEqual(new Date(movementData.date));
     expect(movement.amount).toBe(movementData.amount);
     expect(movement.type).toBe(MovementType.EXPENSE);
     expect(movement.category).toBe(movementData.category);
