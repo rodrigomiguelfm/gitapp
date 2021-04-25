@@ -1,0 +1,20 @@
+name: CI
+
+on: [push]
+
+jobs:
+  unit test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [14.x]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build and Test
+      uses: actions/setup-node@v1
+    - run: npm ci
+    - run: npm run build --if-present
+    - run: npm test
+    - run: npm run test:e2e:run
