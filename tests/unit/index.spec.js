@@ -1,7 +1,6 @@
 const MovementModel = require('../../server/models/movement.js');
 const MovementType = require('../../server/models/movementType.js');
 
-
 beforeEach(async () => {
     await MovementModel.Movement.sync({ force: true });
 });
@@ -9,9 +8,9 @@ beforeEach(async () => {
 test('Crear movimiento', async () => {
     const movementData = {
         date: '04/01/2021',
-        amount: 50000.00,
+        amount: 50000.0,
         type: MovementType.INCOME,
-        category: 'Sueldo'
+        category: 'Sueldo',
     };
 
     // Creamos el movimiento
@@ -26,8 +25,8 @@ test('Crear movimiento', async () => {
 test('Crear movimiento sin tipo', async () => {
     const movementData = {
         date: '01/01/2021',
-        amount: 1000.00,
-        category: 'Supermercado'
+        amount: 1000.0,
+        category: 'Supermercado',
     };
 
     // Creamos el movimiento
@@ -41,8 +40,8 @@ test('Crear movimiento sin tipo', async () => {
 
 test('Crear movimiento sin fecha', async () => {
     const movementData = {
-        amount: 1000.00,
-        category: 'Supermercado'
+        amount: 1000.0,
+        category: 'Supermercado',
     };
 
     try {
