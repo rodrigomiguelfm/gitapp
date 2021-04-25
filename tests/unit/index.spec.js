@@ -64,11 +64,10 @@ test('Editar movimiento', async () => {
 
     expect(movement.category).toBe(movementData.category);
 
-    const movementUpdated = await MovementModel.update(movement.id, {
+    const updateData = {
         category: 'Otros',
-    });
-
-    console.log(movementUpdated);
+    };
+    const movementUpdated = await MovementModel.update(movement.id, updateData);
 
     expect(movementUpdated.category).toBe('Otros');
 });
