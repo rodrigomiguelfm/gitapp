@@ -32,9 +32,9 @@ test('Se debería iniciar la aplicación sin movimientos', async () => {
 test('Obtener movimientos por api', async () => {
     const movementData = {
         date: '04/01/2021',
-        amount: 50000.00,
+        amount: 50000.0,
         type: MovementType.INCOME,
-        category: 'Sueldo'
+        category: 'Sueldo',
     };
 
     // Creamos el movimiento
@@ -52,15 +52,15 @@ test('Obtener movimientos por api', async () => {
 test('Buscar movimientos por api con un resultado', async () => {
     const firstMovementData = {
         date: '01/01/2021',
-        amount: 1000.00,
-        category: 'Supermercado'
+        amount: 1000.0,
+        category: 'Supermercado',
     };
 
     const secondMovementData = {
         date: '04/01/2021',
-        amount: 50000.00,
+        amount: 50000.0,
         type: MovementType.INCOME,
-        category: 'Sueldo'
+        category: 'Sueldo',
     };
 
     // Creamos los movimientos
@@ -80,15 +80,15 @@ test('Buscar movimientos por api con un resultado', async () => {
 test('Buscar movimientos por api con más de un resultado', async () => {
     const firstMovementData = {
         date: '01/01/2021',
-        amount: 1000.00,
-        category: 'Supermercado'
+        amount: 1000.0,
+        category: 'Supermercado',
     };
 
     const secondMovementData = {
         date: '04/01/2021',
-        amount: 50000.00,
+        amount: 50000.0,
         type: MovementType.INCOME,
-        category: 'Sueldo'
+        category: 'Sueldo',
     };
 
     // Creamos los movimientos
@@ -107,22 +107,25 @@ test('Buscar movimientos por api con más de un resultado', async () => {
 test('Crear movimiento por api', async () => {
     const movementData = {
         date: '04/01/2021',
-        amount: 50000.00,
+        amount: 50000.0,
         type: MovementType.INCOME,
-        category: 'Sueldo'
+        category: 'Sueldo',
     };
 
     const URL = `${baseURL}/movements`;
     const req = await fetch(URL, {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
         },
-        body: JSON.stringify(movementData)
+        body: JSON.stringify(movementData),
     });
     const response = await req;
     const movements = await MovementModel.getAll();
 
     expect(response.status).toBe(201);
     expect(movements.rows.length).toBe(1);
+    expect(movements.rows[0].amount).toBe(movementData.amount);
+    expect(movements.rows[0].type).toBe(movementData.type);
+    expect(movements.rows[0].category).toBe(movementData.category);
 });
