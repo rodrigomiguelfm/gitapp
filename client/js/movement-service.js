@@ -7,38 +7,33 @@ async function getLast() {
 }
 
 async function getIncomes() {
-    return new Promise(resolve => {
-        resolve([
-            {
-                id: 3,
-                date: '2021-04-01T03:00:00.000Z',
-                amount: 50000,
-                type: 'income',
-                category: 'Sueldo',
-            },
-            {
-                id: 4,
-                date: '2021-05-01T03:00:00.000Z',
-                amount: 10000,
-                type: 'income',
-                category: 'Plazo Fijo',
-            },
-        ]);
-    });
+    const resp = await fetch(`${BASE_URL}/movements?type=income`);
+    const { movements } = await resp.json();
+    return movements;
 }
 
 async function update(movement) {
-    console.log('update:', movement);
-    return new Promise(resolve => {
-        resolve();
+    const resp = await fetch(`${BASE_URL}/movements/${movement.id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(movement),
     });
+
+    return resp.json();
 }
 
 async function create(movement) {
-    console.log('create:', movement);
-    return new Promise(resolve => {
-        resolve();
+    const resp = await fetch(`${BASE_URL}/movements`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(movement),
     });
+
+    return resp.json();
 }
 
 async function remove(movement) {

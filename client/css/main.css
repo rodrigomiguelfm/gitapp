@@ -87,6 +87,19 @@ html {
     .movement img {
         max-width: 48px;
     }
+
+    .movement .level-left {
+        flex-grow: 0;
+    }
+
+    .movement .level-left,
+    .movement .level-right {
+        justify-content: space-between;
+    }
+
+    .movement .level-item {
+        flex-grow: 0 !important;
+    }
 }
 
 @media screen and (min-width: 769px) {

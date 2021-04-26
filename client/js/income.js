@@ -4,7 +4,7 @@ import movementService from './movement-service.js';
 let state = {
     movements: [],
     movement: {},
-    hasEdit: true
+    hasEdit: true,
 };
 
 let refs = getRefs(document.body);
@@ -31,6 +31,12 @@ async function init() {
     renderIncomes(state);
 }
 
+function getMovementData() {
+    const formData = new FormData(refs.form.firstElementChild);
+    const movement = Object.fromEntries(formData);
+    movement.type = "income"
+    return movement;
+}
 
 // Event Listeners
 
@@ -65,11 +71,12 @@ window.onRemove = async function () {
 window.onSave = async function (e) {
     e.stopPropagation();
     e.preventDefault();
+    const movement = getMovementData();
 
-    if (state.movement.id) {
-        await movementService.update(state.movement);
+    if (movement.id) {
+        await movementService.update(movement);
     } else {
-        await movementService.create(state.movement);
+        await movementService.create(movement);
     }
 
     state.movement = {};

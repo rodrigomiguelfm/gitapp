@@ -1,8 +1,20 @@
 <form action="" onsubmit="return false;">
+    <input
+        type="text"
+        name="id"
+        class="is-hidden"
+        value="{{ movement.id if movement.id }}"
+    />
+
     <div class="field">
         <label class="label">Descripción</label>
         <div class="control">
-            <input class="input" type="text" placeholder="" />
+            <input
+                name="description"
+                class="input"
+                type="text"
+                placeholder=""
+            />
         </div>
     </div>
 
@@ -10,6 +22,7 @@
         <label class="label">Fecha</label>
         <div class="control">
             <input
+                name="date"
                 class="input"
                 type="date"
                 placeholder=""
@@ -22,6 +35,7 @@
         <label class="label">Categoría</label>
         <div class="control">
             <input
+                name="category"
                 class="input"
                 type="text"
                 placeholder=""
@@ -32,8 +46,10 @@
 
     <div class="field">
         <label class="label">Monto</label>
+
         <div class="control">
             <input
+                name="amount"
                 class="input"
                 type="number"
                 placeholder=""
@@ -55,7 +71,7 @@
 
         <div class="control">
             <button class="button is-inverted" onclick="onCancel(event)">
-                Cancelar
+                Limpiar
             </button>
         </div>
 
