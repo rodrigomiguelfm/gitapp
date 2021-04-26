@@ -32,4 +32,37 @@ router.get('/', function (req, res) {
         });
 });
 
+/**
+ * Endpoint para crear un movimiento.
+ * Recibe los datos del movimiento en body.
+ *
+ */
+router.post('/', function (req, res) {
+    MovementModel.create(req.body)
+        .then((data) => {
+            res.status(201).send(data);
+        })
+        .catch((_) => {
+            console.log(_);
+            res.status(500).send('Error al crear movimiento');
+        })
+});
+
+/**
+ * Endpoint para editar un movimiento.
+ * Recibe el id en req.params.id
+ *
+ */
+router.put('/:id', function (req, res) {
+    MovementModel.update(req.params.id, req.body)
+        .then((movement) => {
+            if (movement == null) {
+                res.status(404).send(
+                    'El movimiento ' + req.params.id + ' no fue encontrado'
+                );
+            } else res.status(200).send(movement);
+        })
+        .catch(() => res.status(500).send('Error al obtener movimiento'));
+});
+
 module.exports = router;
