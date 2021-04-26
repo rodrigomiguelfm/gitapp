@@ -16,4 +16,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 -   Incomes UI with last incomes
 
 [unreleased]: https://github.com/frlp-utn-ingsoft/gitapp/compare/v1.0.0...HEAD
-[0.0.1]: https://github.com/frlp-utn-ingsoft/gitapp/releases/tag/v1.0.0
+[1.0.0]: https://github.com/frlp-utn-ingsoft/gitapp/releases/tag/v1.0.0
