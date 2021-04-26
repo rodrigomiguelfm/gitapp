@@ -15,3 +15,7 @@ export function monefy(num) {
 
     return result.reverse().join('.');
 }
+
+export function formatDate(date) {
+    return date.split('T')[0];
+}

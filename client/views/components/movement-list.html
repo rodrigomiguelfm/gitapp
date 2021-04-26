@@ -1,9 +1,8 @@
 <!-- prettier-ignore-start -->
 {% import "movement.html" as movement %}
-
 <ul>
     {% for item in movements %}
-    <li class="block">{{ movement.render(item) }}</li>
+    <li class="block">{{ movement.render(item, hasEdit) }}</li>
     {% endfor %}
 </ul>
 

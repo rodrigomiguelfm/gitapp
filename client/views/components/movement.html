@@ -1,5 +1,5 @@
-{% macro render(movement) %}
-<div class="level is-mobile">
+{% macro render(movement, hasEdit) %}
+<div class="level is-mobile movement">
     <div class="level-left">
         <div class="level-item">
             <img
@@ -27,6 +27,17 @@
                 $ {{ movement.amount | monefy }}
             </p>
         </div>
+
+        {% if hasEdit %}
+        <div class="level-item">
+            <button
+                class="button is-small is-rounded"
+                onclick="editMovement({{ movement | dump }})"
+            >
+                editar
+            </button>
+        </div>
+        {% endif %}
     </div>
 </div>
 {% endmacro %}

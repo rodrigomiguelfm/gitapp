@@ -1,0 +1,70 @@
+<form action="" onsubmit="return false;">
+    <div class="field">
+        <label class="label">Descripción</label>
+        <div class="control">
+            <input class="input" type="text" placeholder="" />
+        </div>
+    </div>
+
+    <div class="field">
+        <label class="label">Fecha</label>
+        <div class="control">
+            <input
+                class="input"
+                type="date"
+                placeholder=""
+                value="{{ movement.date | formatDate if movement.date }}"
+            />
+        </div>
+    </div>
+
+    <div class="field">
+        <label class="label">Categoría</label>
+        <div class="control">
+            <input
+                class="input"
+                type="text"
+                placeholder=""
+                value="{{ movement.category if movement.category }}"
+            />
+        </div>
+    </div>
+
+    <div class="field">
+        <label class="label">Monto</label>
+        <div class="control">
+            <input
+                class="input"
+                type="number"
+                placeholder=""
+                value="{{ movement.amount if movement.amount }}"
+            />
+        </div>
+    </div>
+
+    <div class="field is-grouped">
+        <div class="control">
+            <button
+                class="button is-primary"
+                onclick="onSave(event)"
+                type="submit"
+            >
+                Guardar
+            </button>
+        </div>
+
+        <div class="control">
+            <button class="button is-inverted" onclick="onCancel(event)">
+                Cancelar
+            </button>
+        </div>
+
+        {% if movement.id %}
+        <div class="control is-flex-grow-1 is-flex is-justify-content-flex-end">
+            <button class="button is-danger" onclick="onRemove(event)">
+                Eliminar
+            </button>
+        </div>
+        {% endif %}
+    </div>
+</form>

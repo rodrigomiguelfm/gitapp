@@ -1,10 +1,14 @@
 const nunjucks = require('nunjucks');
 
 function init({ express, viewsPath }) {
-    return nunjucks.configure(viewsPath, {
+    const env = nunjucks.configure(viewsPath, {
         autoescape: true,
         express,
     });
+
+    env.addFilter('formatDate', date => date);
+
+    return env;
 }
 
 module.exports = {
