@@ -4,7 +4,8 @@ const morgan = require('morgan');
 const express = require('express');
 const paginate = require('express-paginate');
 const bodyParser = require('body-parser');
-const detectPort = require('detect-port');
+
+const detectPort = process.env.HEROKU ? port => port : require('detect-port');
 
 const nunjucks = require('./utils/nunjucks.js');
 
