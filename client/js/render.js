@@ -1,6 +1,6 @@
 import { monefy } from './utils.js';
 
-const env = new nunjucks.Environment();
+const env = new window.nunjucks.Environment();
 
 env.addFilter('monefy', monefy);
 
