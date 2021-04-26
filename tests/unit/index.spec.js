@@ -51,6 +51,64 @@ test('Crear movimiento sin fecha', async () => {
     }
 });
 
+test('Editar movimiento', async () => {
+    const movementData = {
+        date: '04/01/2021',
+        amount: 50000.0,
+        type: MovementType.INCOME,
+        category: 'Sueldo',
+    };
+
+    // Creamos el movimiento
+    const movement = await MovementModel.create(movementData);
+
+    // La categoría debería ser la creada
+    expect(movement.category).toBe(movementData.category);
+
+    const updateData = {
+        category: 'Otros',
+    };
+
+    // Modificamos categoría del movimiento
+    const movementUpdated = await MovementModel.update(movement.id, updateData);
+
+    // La función debería retornar algo
+    expect(movementUpdated).not.toBeNull();
+
+    // La categoría debería ser la modificada
+    expect(movementUpdated.category).toBe('Otros');
+});
+
+test('Editar movimiento inexistente', async () => {
+    const movementData = {
+        date: '04/01/2021',
+        amount: 50000.0,
+        type: MovementType.INCOME,
+        category: 'Sueldo',
+    };
+
+    // Creamos el movimiento
+    const movement = await MovementModel.create(movementData);
+
+    // La categoría debería ser la creada
+    expect(movement.category).toBe(movementData.category);
+
+    const updateData = {
+        category: 'Otros',
+    };
+
+    // Modificamos movimiento inexistente
+    const movementUpdated = await MovementModel.update(2, updateData);
+
+    // La función debería retornar null
+    expect(movementUpdated).toBeNull();
+
+    const movements = await MovementModel.getAll();
+
+    // La categoría debería seguir siendo la misma
+    expect(movements.rows[0].category).toBe(movementData.category);
+});
+
 test('Eliminar movimiento', async () => {
     const movementData = {
         date: '04/01/2021',
