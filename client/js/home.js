@@ -24,57 +24,83 @@ function renderMovements(state) {
     render('movement-list.html', state, refs.movements);
 }
 
-/**
- * Inicializa la vista home
- **/
-async function init() {
-    let donutLabels = [];
-    let donutData = [];
-    let barLabels = [];
+function generateExpenseData(movements) {
+    let labels = [];
+    let data = [];
+
+    movements.forEach((m) => {
+        const month = getMonth(m.date).toString();
+
+        if (m.type == 'expense') {
+            if (labels.includes(m.category)) {
+                data[labels.indexOf(m.category)] += m.amount;
+            } else {
+                labels.push(m.category);
+                data.push(m.amount);
+            }
+        }
+    });
+
+    return {
+        labels,
+        data
+    };
+}
+
+function generateBalanceData(movements) {
+    let labels = [];
     let totalExpenses = [];
     let totalIncomes = [];
 
-    state.movements = await getLastMovements();
-    renderMovements(state);
-
-    state.movements.forEach((m) => {
+    movements.forEach((m) => {
         const month = getMonth(m.date).toString();
 
-        if (!barLabels.includes(month)) {
-            barLabels.push(month);
+        if (!labels.includes(month)) {
+            labels.push(month);
             totalIncomes.push(0);
             totalExpenses.push(0);
         }
 
         if (m.type == 'expense') {
-            if (donutLabels.includes(m.category)) {
-                donutData[donutLabels.indexOf(m.category)] += m.amount;
-            } else {
-                donutLabels.push(m.category);
-                donutData.push(m.amount);
-            }
-
-            totalExpenses[barLabels.indexOf(month)] -= m.amount;
-        } else totalIncomes[barLabels.indexOf(month)] += m.amount;
+            totalExpenses[labels.indexOf(month)] -= m.amount;
+        } else {
+            totalIncomes[labels.indexOf(month)] += m.amount;
+        }
     });
 
-    const barData = [
+    const data = [
         {
             label: 'Gastos',
             data: totalExpenses,
-            borderColor: 'red',
-            backgroundColor: 'red',
+            borderColor: '#f14668',
+            backgroundColor: '#f14668',
         },
         {
             label: 'Ingresos',
             data: totalIncomes,
-            borderColor: 'green',
-            backgroundColor: 'green',
+            borderColor: '#48c774',
+            backgroundColor: '#48c774',
         },
     ];
 
-    donutChart.init(donutLabels, donutData);
-    barChart.init(barLabels, barData);
+    return {
+        labels,
+        data
+    }
+}
+
+/**
+ * Inicializa la vista home
+ **/
+async function init() {
+    state.movements = await getLastMovements();
+    renderMovements(state);
+
+    const balance = generateBalanceData(state.movements)
+    const expense = generateExpenseData(state.movements)
+
+    donutChart.init(expense.labels, expense.data, refs.monthExpenses);
+    barChart.init(balance.labels, balance.data, refs.monthBalance);
 }
 
 init();

@@ -1,22 +1,14 @@
-/* global Chart */
-
-function init(labels, data) {
-    const ctx = document.getElementById('month_balance');
-
-    new Chart(ctx, {
+function init(labels, data, ctx) {
+    new window.Chart(ctx, {
         type: 'bar',
+        options: {
+            responsive: true,
+            maintainAspectRatio: false
+        },
         data: {
             labels: labels,
             datasets: data,
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    position: 'top',
-                },
-            },
-        },
+        }
     });
 }
 
