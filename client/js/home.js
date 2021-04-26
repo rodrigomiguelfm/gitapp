@@ -15,7 +15,7 @@ async function getLastMovements() {
 }
 
 /**
- * Renderiza los libros
+ * Renderiza los movimientos
  **/
 function renderMovements(state) {
     render('movement-list.html', state, refs.movements);
