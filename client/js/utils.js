@@ -16,8 +16,10 @@ export function monefy(num) {
     return result.reverse().join('.');
 }
 
-export function getRandom() {
-    return Math.floor(Math.random() * 255);
+export function getRandomColor() {
+    return `hsl(${360 * Math.random()}, ${25 + 70 * Math.random()}%, ${
+        65 + 10 * Math.random()
+    }%)`;
 }
 
 export function getMonth(dateString) {

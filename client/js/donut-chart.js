@@ -1,20 +1,16 @@
 /* global Chart */
 
-import { getRandom } from './utils.js';
+import { getRandomColor } from './utils.js';
 
 function init(labels, data, ctx) {
-    const colors = data.map(() => {
-        return (
-            'rgb(' + getRandom() + ',' + getRandom() + ',' + getRandom() + ')'
-        );
-    });
+    const colors = data.map(getRandomColor);
 
     new Chart(ctx, {
         type: 'doughnut',
 
         options: {
             responsive: true,
-            maintainAspectRatio: false
+            maintainAspectRatio: false,
         },
         data: {
             labels: labels,
