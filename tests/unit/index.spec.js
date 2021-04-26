@@ -50,3 +50,61 @@ test('Crear movimiento sin fecha', async () => {
         expect(e.name).toBe('SequelizeDatabaseError');
     }
 });
+
+test('Eliminar movimiento', async () => {
+    const movementData = {
+        date: '04/01/2021',
+        amount: 50000.0,
+        type: MovementType.INCOME,
+        category: 'Sueldo',
+    };
+
+    // Creamos el movimiento
+    const movement = await MovementModel.create(movementData);
+
+    // Buscamos todos los movimientos
+    let movements = await MovementModel.getAll();
+
+    // Debe existir un movimiento en la lista
+    expect(movements.rows.length).toBe(1);
+
+    // Eliminamos movimiento
+    const deleted = await MovementModel.delete(movement.id);
+
+    // La función debería retornar algo
+    expect(deleted).not.toBeNull();
+
+    movements = await MovementModel.getAll();
+
+    // No deben haber movimientos en la lista
+    expect(movements.rows.length).toBe(0);
+});
+
+test('Eliminar movimiento inexistente', async () => {
+    const movementData = {
+        date: '04/01/2021',
+        amount: 50000.0,
+        type: MovementType.INCOME,
+        category: 'Sueldo',
+    };
+
+    // Creamos un movimiento
+    await MovementModel.create(movementData);
+
+    // Buscamos todos los movimientos
+    let movements = await MovementModel.getAll();
+
+    // Debe existir un movimiento en la lista
+    expect(movements.rows.length).toBe(1);
+
+    // Eliminamos movimiento inexistente
+    const deleted = await MovementModel.delete(2);
+
+    // La función debería retornar null
+    expect(deleted).toBeNull();
+
+    movements = await MovementModel.getAll();
+
+    // El movimiento debería seguir existiendo en la lista
+    expect(movements.rows.length).toBe(1);
+});
