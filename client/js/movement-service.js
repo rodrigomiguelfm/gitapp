@@ -6,7 +6,7 @@ async function getLast() {
     return movements;
 }
 
-async function getIncomes(id) {
+async function getIncomes() {
     return new Promise(resolve => {
         resolve([
             {
