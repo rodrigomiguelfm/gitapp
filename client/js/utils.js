@@ -21,7 +21,11 @@ export function getRandom() {
 }
 
 export function getMonth(dateString) {
+    const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+      "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+    ];
+
     const date = new Date(dateString);
 
-    return date.getMonth();
+    return monthNames[date.getMonth()];
 }

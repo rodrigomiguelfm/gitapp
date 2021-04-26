@@ -73,8 +73,6 @@ async function init() {
         },
     ];
 
-    console.log(barData);
-
     donutChart.init(donutLabels, donutData);
     barChart.init(barLabels, barData);
 }
