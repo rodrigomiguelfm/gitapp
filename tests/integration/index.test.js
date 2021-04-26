@@ -121,10 +121,9 @@ test('Editar movimiento por api', async () => {
         },
         body: JSON.stringify(updateData),
     });
-    const response = await req;
     const body = await req.json();
 
-    expect(response.status).toBe(200);
+    expect(req.status).toBe(200);
 
     // Chequeamos que la categoría esté modificada en la respuesta
     expect(body.category).toBe(updateData.category);
@@ -157,7 +156,6 @@ test('Editar movimiento inexistente por api', async () => {
         },
         body: JSON.stringify(updateData),
     });
-    const response = await req;
 
-    expect(response.status).toBe(404);
+    expect(req.status).toBe(404);
 });
