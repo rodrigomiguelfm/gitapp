@@ -8,7 +8,7 @@ const fixture = require('./fixture.js');
 
 const serverPath = path.resolve(__dirname, '..', 'server');
 const clientPath = path.resolve(__dirname, '..', 'client');
-const viewsPath = path.resolve(clientPath, 'views');
+const componentsPath = path.resolve(clientPath, 'views', 'components');
 const tmplsPath = path.resolve(clientPath, 'js', 'partials');
 
 function compileTemplate(name, template, dest) {
@@ -45,19 +45,27 @@ async function compileTemplates() {
         fsSync.mkdirSync(tmplsPath);
     }
 
-    const files = fsSync.readdirSync(viewsPath);
+    const files = fsSync.readdirSync(componentsPath);
 
     const promises = files
         .filter(fileName => !fileName.startsWith('_'))
         .map(function (fileName) {
-            const filePath = path.resolve(viewsPath, fileName);
+            const filePath = path.resolve(componentsPath, fileName);
+
             const tmplPath = path.resolve(
                 tmplsPath,
                 fileName.replace('html', 'js')
             );
-            return fs.readFile(filePath, 'utf8').then(function (tmplContent) {
-                return compileTemplate(fileName, tmplContent, tmplPath);
-            });
+
+            return fs
+                .readFile(filePath, 'utf8')
+                .then(function (tmplContent) {
+                    return compileTemplate(fileName, tmplContent, tmplPath);
+                })
+                .catch(e => {
+                    console.log('ERROR in file', filePath);
+                    console.error(e);
+                });
         });
 
     return Promise.all(promises);
