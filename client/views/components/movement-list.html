@@ -1,8 +1,7 @@
 <!-- prettier-ignore-start -->
-{% import "movement.html" as movement %}
 <ul>
-    {% for item in movements %}
-    <li class="block">{{ movement.render(item, hasEdit) }}</li>
+    {% for movement in movements %}
+    <li class="block">{% include "movement.html" %}</li>
     {% endfor %}
 </ul>
 

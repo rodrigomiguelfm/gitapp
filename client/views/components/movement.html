@@ -1,8 +1,8 @@
-{% macro render(movement, hasEdit) %}
-<div class="level is-mobile movement">
+<div class="level is-mobile movement" data-testid="movement">
     <div class="level-left">
         <div class="level-item">
             <img
+                data-testid="movement-icon"
                 src="{{ '/assets/income.svg' if movement.type == 'income' else '/assets/expense.svg' }}"
                 class="level-item"
                 alt=""
@@ -40,4 +40,3 @@
         {% endif %}
     </div>
 </div>
-{% endmacro %}
