@@ -1,8 +1,8 @@
-{% macro render(movement) %}
-<div class="level is-mobile">
+<div class="level is-mobile movement" data-testid="movement">
     <div class="level-left">
         <div class="level-item">
             <img
+                data-testid="movement-icon"
                 src="{{ '/assets/income.svg' if movement.type == 'income' else '/assets/expense.svg' }}"
                 class="level-item"
                 alt=""
@@ -27,6 +27,16 @@
                 $ {{ movement.amount | monefy }}
             </p>
         </div>
+
+        {% if hasEdit %}
+        <div class="level-item">
+            <button
+                class="button is-small is-rounded"
+                onclick="editMovement({{ movement | dump }})"
+            >
+                editar
+            </button>
+        </div>
+        {% endif %}
     </div>
 </div>
-{% endmacro %}

@@ -6,6 +6,7 @@
 
 ::-webkit-scrollbar {
     width: 7px;
+    height: 7px;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -58,9 +59,13 @@ html {
     padding: 0 2rem;
 }
 
-.aside-item:hover {
+.aside-item:hover,
+.aside-item.is-active {
     background-color: #fafafa;
-    color: #485fc7;
+}
+
+.aside-item-text {
+    color: #4a4a4a;
 }
 
 .aside-item img {
@@ -71,6 +76,30 @@ html {
 .main {
     grid-area: main;
     overflow-y: auto;
+}
+
+@media screen and (max-width: 769px) {
+    .movement {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .movement img {
+        max-width: 48px;
+    }
+
+    .movement .level-left {
+        flex-grow: 0;
+    }
+
+    .movement .level-left,
+    .movement .level-right {
+        justify-content: space-between;
+    }
+
+    .movement .level-item {
+        flex-grow: 0 !important;
+    }
 }
 
 @media screen and (min-width: 769px) {

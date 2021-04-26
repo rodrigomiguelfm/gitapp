@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
-        <title>Gitapp</title>
+        <title>{% block title %} Gitapp {% endblock %}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link
             rel="stylesheet"
@@ -26,20 +26,29 @@
         </nav>
 
         <nav class="aside">
-            <div class="aside-item">
+            <a
+                href="/"
+                class="aside-item {{ 'is-active' if activeLink === 'home' }}"
+            >
                 <img src="/assets/home.svg" alt="home logo" />
                 <span class="aside-item-text">Resumen</span>
-            </div>
+            </a>
 
-            <div class="aside-item">
+            <a
+                href="/income"
+                class="aside-item {{ 'is-active' if activeLink === 'income' }}"
+            >
                 <img src="/assets/income.svg" alt="income logo" />
                 <span class="aside-item-text">Ingresos</span>
-            </div>
+            </a>
 
-            <div class="aside-item">
+            <a
+                href="/"
+                class="aside-item {{ 'is-active' if activeLink === 'expense' }}"
+            >
                 <img src="/assets/expense.svg" alt="expense logo" />
                 <span class="aside-item-text">Egresos</span>
-            </div>
+            </a>
         </nav>
 
         <main class="main px-4 mt-4">{% block main %} {% endblock %}</main>
