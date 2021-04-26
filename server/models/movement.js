@@ -64,6 +64,29 @@ const createMovement = ({
 };
 
 /**
+ * Modifica un movimiento ya existente.
+ * Parámetro id: id a buscar en la base de datos.
+ * Parámetro data: JSON con los atributos a crear.
+ *
+ */
+const updateMovement = (
+    id,
+    {
+        date = '01/01/2021',
+        amount = 0.0,
+        type = MovementType.EXPENSE,
+        category = '',
+    } = {}
+) => {
+    return Movement.findOne({ where: { id: id } }).then((movement) => {
+        if (movement != null) {
+            return movement.update({ date, amount, type, category });
+        }
+        return null;
+    });
+};
+
+/**
  * Elimina un movimiento existente.
  * Parámetro id: id a buscar en la base de datos.
  *
@@ -81,6 +104,7 @@ const MovementModel = {
     Movement: Movement,
     getAll: getAllMovements,
     create: createMovement,
+    update: updateMovement,
     delete: deleteMovement,
 };
 

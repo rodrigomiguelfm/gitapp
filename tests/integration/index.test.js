@@ -124,3 +124,67 @@ test('Crear movimiento por api', async () => {
     expect(movements.rows[0].type).toBe(movementData.type);
     expect(movements.rows[0].category).toBe(movementData.category);
 });
+
+test('Editar movimiento por api', async () => {
+    const movementData = {
+        date: '04/01/2021',
+        amount: 50000.0,
+        type: MovementType.INCOME,
+        category: 'Sueldo',
+    };
+
+    // Creamos el movimiento
+    const movement = await MovementModel.create(movementData);
+
+    // Chequeamos que la categoría sea la correspondiente
+    expect(movement.category).toBe(movementData.category);
+
+    const updateData = {
+        category: 'Otros',
+    };
+    const URL = `${baseURL}/movements/${movement.id}`;
+    const req = await fetch(URL, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updateData),
+    });
+    const body = await req.json();
+
+    expect(req.status).toBe(200);
+
+    // Chequeamos que la categoría esté modificada en la respuesta
+    expect(body.category).toBe(updateData.category);
+
+    const movements = await MovementModel.getAll();
+
+    // Chequeamos que la categoría se haya modificado en el modelo
+    expect(movements.rows[0].category).toBe(updateData.category);
+});
+
+test('Editar movimiento inexistente por api', async () => {
+    const movementData = {
+        date: '04/01/2021',
+        amount: 50000.0,
+        type: MovementType.INCOME,
+        category: 'Sueldo',
+    };
+
+    // Creamos un movimiento
+    await MovementModel.create(movementData);
+
+    const updateData = {
+        category: 'Otros',
+    };
+    const URL = `${baseURL}/movements/2`;
+    const req = await fetch(URL, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updateData),
+    });
+
+    expect(req.status).toBe(404);
+});
