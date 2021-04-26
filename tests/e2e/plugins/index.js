@@ -1,12 +1,12 @@
 const server = require('../../../server/index.js');
 
-module.exports = function (on, config) {
+module.exports = function (on) {
     let serverInstance;
 
     on('after:run', () => {
         serverInstance.close();
         return null;
-    })
+    });
 
     on('task', {
         seed: () => {
@@ -20,7 +20,7 @@ module.exports = function (on, config) {
         serverInstance = instance;
 
         return {
-            baseUrl: `http://localhost:${serverInstance.address().port}`
-        }
+            baseUrl: `http://localhost:${serverInstance.address().port}`,
+        };
     });
 };
