@@ -1,9 +1,8 @@
 const path = require('path');
 
-const { init } = require('../../server/utils/nunjucks.js');
+const { init } = require('../server/utils/nunjucks.js');
 const viewsPath = path.resolve(
     __dirname,
-    '..',
     '..',
     'client',
     'views',
