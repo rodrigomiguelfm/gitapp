@@ -8,7 +8,7 @@ const router = express.Router();
  *
  */
 router.get('/', function (req, res) {
-    MovementModel.getAll(req.query.limit, req.skip)
+    MovementModel.getAll(req.query.limit, req.skip, req.query.type)
         .then((results) => {
             const pageCount = Math.ceil(results.count / req.query.limit);
 
