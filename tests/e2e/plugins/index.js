@@ -1,4 +1,5 @@
 const server = require('../../../server/index.js');
+const fixture = require('../../../scripts/fixture.js');
 
 module.exports = function (on) {
     let serverInstance;
@@ -10,9 +11,7 @@ module.exports = function (on) {
 
     on('task', {
         seed: () => {
-            // TODO: seed db
-            // serverManager.seed();
-            return null;
+            return fixture.init();
         },
     });
 
