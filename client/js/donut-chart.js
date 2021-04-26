@@ -1,13 +1,16 @@
+/* global Chart */
+
 import { getRandom } from './utils.js';
 
 function init(labels, data) {
-    const colors = data.map((item) => {
+    const colors = data.map(() => {
         return (
             'rgb(' + getRandom() + ',' + getRandom() + ',' + getRandom() + ')'
         );
     });
     const ctx = document.getElementById('month_expenses');
-    const myChart = new Chart(ctx, {
+
+    new Chart(ctx, {
         type: 'doughnut',
         data: {
             labels: labels,
