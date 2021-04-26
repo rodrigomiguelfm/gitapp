@@ -19,3 +19,9 @@ export function monefy(num) {
 export function getRandom() {
     return Math.floor(Math.random() * 255);
 }
+
+export function getMonth(dateString) {
+    const date = new Date(dateString);
+
+    return date.getMonth();
+}

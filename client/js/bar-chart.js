@@ -14,8 +14,8 @@ function init(labels, data) {
             plugins: {
                 legend: {
                     position: 'top',
-                }
-            }
+                },
+            },
         },
     });
 }
