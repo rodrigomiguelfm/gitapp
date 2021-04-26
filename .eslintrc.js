@@ -10,10 +10,11 @@ module.exports = {
     },
     overrides: [
         {
-            files: ['**/*.test.js'],
+            files: ['**/*.test.js', '**/*.spec.js'],
             globals: {
                 after: true,
                 before: true,
+                cy: true,
             },
             env: {
                 jest: true,
