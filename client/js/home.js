@@ -28,9 +28,7 @@ function generateExpenseData(movements) {
     let labels = [];
     let data = [];
 
-    movements.forEach((m) => {
-        const month = getMonth(m.date).toString();
-
+    movements.forEach(m => {
         if (m.type == 'expense') {
             if (labels.includes(m.category)) {
                 data[labels.indexOf(m.category)] += m.amount;
@@ -43,7 +41,7 @@ function generateExpenseData(movements) {
 
     return {
         labels,
-        data
+        data,
     };
 }
 
@@ -52,7 +50,7 @@ function generateBalanceData(movements) {
     let totalExpenses = [];
     let totalIncomes = [];
 
-    movements.forEach((m) => {
+    movements.forEach(m => {
         const month = getMonth(m.date).toString();
 
         if (!labels.includes(month)) {
@@ -85,8 +83,8 @@ function generateBalanceData(movements) {
 
     return {
         labels,
-        data
-    }
+        data,
+    };
 }
 
 /**
@@ -96,8 +94,8 @@ async function init() {
     state.movements = await getLastMovements();
     renderMovements(state);
 
-    const balance = generateBalanceData(state.movements)
-    const expense = generateExpenseData(state.movements)
+    const balance = generateBalanceData(state.movements);
+    const expense = generateExpenseData(state.movements);
 
     donutChart.init(expense.labels, expense.data, refs.monthExpenses);
     barChart.init(balance.labels, balance.data, refs.monthBalance);
