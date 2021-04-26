@@ -15,3 +15,7 @@ export function monefy(num) {
 
     return result.reverse().join('.');
 }
+
+export function getRandom() {
+    return Math.floor(Math.random() * 255);
+}
