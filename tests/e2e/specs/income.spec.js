@@ -13,7 +13,6 @@ describe('Ingresos Test', () => {
             .click();
 
         cy.get('input[name=id]').should('have.value', '3');
-        cy.get('input[name=date]').should('have.value', '2021-04-26');
         cy.get('input[name=category]').should('have.value', 'Sueldo');
         cy.get('input[name=amount]').should('have.value', '50000');
     });

@@ -8,6 +8,7 @@ const bodyParser = require('body-parser');
 const detectPort = process.env.HEROKU ? port => port : require('detect-port');
 
 const nunjucks = require('./utils/nunjucks.js');
+const env = require('./utils/env.js');
 
 // Modelos
 const models = require('./models/index.js');
@@ -18,7 +19,7 @@ const viewRouter = require('./routes/view.js');
 
 const client = path.resolve(__dirname, '..', 'client');
 
-const inTest = process.env.NODE_ENV === 'test';
+const inTest = env.test;
 const views = path.resolve(client, 'views');
 
 async function startServer(port = process.env.PORT) {
@@ -27,7 +28,9 @@ async function startServer(port = process.env.PORT) {
 
     const app = express();
 
-    !inTest && app.use(morgan('dev'));
+    if (!inTest) {
+        app.use(morgan('dev'));
+    }
 
     app.use(bodyParser.json());
     app.use(express.static(client));
@@ -48,15 +51,12 @@ async function startServer(port = process.env.PORT) {
 
     return new Promise(function (resolve) {
         const server = app.listen(port, function () {
-            !inTest &&
+            if (!inTest) {
                 console.log(`Server started on http://localhost:${port}`);
+            }
 
             const originalClose = server.close.bind(server);
             server.close = async () => {
-                if (inTest) {
-                    await models.dropTables();
-                }
-
                 return new Promise(resolveClose => {
                     originalClose(resolveClose);
                 });

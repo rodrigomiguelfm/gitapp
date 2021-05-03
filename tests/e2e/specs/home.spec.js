@@ -1,4 +1,9 @@
 describe('Home Test', () => {
+    // Limpio la db antes de cada test
+    beforeEach(() => {
+        cy.task('seed');
+    });
+
     it('Deberia tener de titulo Gitapp', () => {
         cy.visit('/');
         cy.title().should('eq', 'Gitapp');
