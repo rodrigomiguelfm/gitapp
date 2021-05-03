@@ -57,10 +57,6 @@ async function startServer(port = process.env.PORT) {
 
             const originalClose = server.close.bind(server);
             server.close = async () => {
-                if (inTest) {
-                    await models.dropTables();
-                }
-
                 return new Promise(resolveClose => {
                     originalClose(resolveClose);
                 });
