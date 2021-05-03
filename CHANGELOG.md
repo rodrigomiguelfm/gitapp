@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.1] - 2021-05-03
+
+### Added
+
+-   Cypress detection for running tests on memory
+-   Cypress seed before each cypress test
+
+### Changed
+
+-   Creates tables on server init and avoids erase on shutdown
+
+### Removed
+
+-   Cypress experimental configuration
+
 ## [1.0.0] - 2021-04-26
 
 ### Added
@@ -15,5 +30,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 -   Home UI with charts and last movements
 -   Incomes UI with last incomes
 
-[unreleased]: https://github.com/frlp-utn-ingsoft/gitapp/compare/v1.0.0...HEAD
+[unreleased]: https://github.com/frlp-utn-ingsoft/gitapp/compare/v1.0.1...HEAD
+[1.0.1]: https://github.com/frlp-utn-ingsoft/gitapp/releases/tag/v1.0.1
 [1.0.0]: https://github.com/frlp-utn-ingsoft/gitapp/releases/tag/v1.0.0
