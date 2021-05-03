@@ -1,7 +1,8 @@
 const path = require('path');
 const Sequelize = require('sequelize');
+const env = require('./utils/env.js');
 
-const inTest = process.env.NODE_ENV === 'test';
+const inTest = env.test;
 
 const sequelize = new Sequelize({
     dialect: 'sqlite',
