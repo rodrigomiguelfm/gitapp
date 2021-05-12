@@ -75,8 +75,10 @@ window.onSave = async function (e) {
 
     if (movement.id) {
         await movementService.update(movement);
+//        alert("Se ha modificado el movimiento");
     } else {
         await movementService.create(movement);
+//        alert("Se ha dado de alta el movimiento");
     }
 
     state.movement = {};

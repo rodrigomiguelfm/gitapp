@@ -32,7 +32,7 @@ async function create(movement) {
         },
         body: JSON.stringify(movement),
     });
-
+    alert("Se ha dado de alta el movimiento");
     return resp.json();
 }
 
