@@ -69,7 +69,8 @@ const createMovement = ({
     type = MovementType.EXPENSE,
     category = '',
 } = {}) => {
-    date = new Date()
+	/* Comentamos la asignacion de fecha. Esto genera un Bug */
+   // date = new Date()
     return Movement.create({ date, amount, type, category });
 };
 
