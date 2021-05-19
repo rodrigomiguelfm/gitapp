@@ -10,4 +10,10 @@ router.get('/income', function (req, res) {
     res.render('income');
 });
 
+router.get('/expense', function (req, res) {
+    14
+        res.render('expense');
+    15
+    });
+
 module.exports = router;
