@@ -13,8 +13,7 @@ test('Should convert undefined into ""', async () => {
     expect(monefy(undefined)).toBe('');
 });
 
-test('verificar que el formato de fecha sea del tamaño correcto""', async () => {
-    
+test('Verificar que el formato de fecha sea del tamaño correcto""', async () => {
     const cantChar = formatDate('2020-05-30T64654654656464').length 
     expect(cantChar).toBe(10);
 });
