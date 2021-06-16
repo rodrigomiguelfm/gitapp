@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.0] - 2021-06-16
+
+### Added
+
+-   Se agregó alerta que indique que un movimiento se guardó con éxito al crear el movimiento
+-   Se creaó vista de egresos de manera análoga a la tabla de ingresos.
+
+### Fixed
+
+-   Se arregló los headers de la card de los gráficos
+-	Se arregló el problema que hace que todos los movimientos se creen con la fecha de hoy.
+-	Ya no hay que hacer refresh al crear un movimiento, para que aparezca reflejado en la lista.
+
 ## [1.0.1] - 2021-05-03
 
 ### Added
@@ -30,6 +43,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 -   Home UI with charts and last movements
 -   Incomes UI with last incomes
 
-[unreleased]: https://github.com/frlp-utn-ingsoft/gitapp/compare/v1.0.1...HEAD
-[1.0.1]: https://github.com/frlp-utn-ingsoft/gitapp/releases/tag/v1.0.1
-[1.0.0]: https://github.com/frlp-utn-ingsoft/gitapp/releases/tag/v1.0.0
+[unreleased]: https://github.com/rodrigomiguelfm/gitapp/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/rodrigomiguelfm/gitapp/releases/tag/v1.1.0
+[1.0.1]: https://github.com/rodrigomiguelfm/gitapp/releases/tag/v1.0.1
+[1.0.0]: https://github.com/rodrigomiguelfm/gitapp/releases/tag/v1.0.0
