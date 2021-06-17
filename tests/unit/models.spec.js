@@ -18,7 +18,6 @@ test('Verificar que la fecha ingresada no se alterada', async () => {
 	expect(movement.date.toJSON()).toBe(fecha)
 })
 
-
 test('Crear movimiento', async () => {
     const movementData = {
         date: '04/01/2021',
@@ -330,7 +329,7 @@ test('Eliminar movimiento inexistente', async () => {
         category: 'Sueldo',
     };
 
-    // Creamos un movimiento
+    // Creamos el movimiento
     await MovementModel.create(movementData);
 
     // Buscamos todos los movimientos
@@ -349,4 +348,62 @@ test('Eliminar movimiento inexistente', async () => {
 
     // El movimiento debería seguir existiendo en la lista
     expect(movements.rows.length).toBe(1);
+});
+
+test('Eliminar movimiento', async () => {
+    const movementData = {
+        date: '04/01/2021',
+        amount: 50000.0,
+        type: MovementType.INCOME,
+        category: 'Sueldo',
+    };
+
+    // Creamos el movimiento
+    const movement = await MovementModel.create(movementData);
+
+    // Buscamos todos los movimientos
+    let movementsBeforeDelete = await MovementModel.getAll();
+
+    // Debe existir un movimiento en la lista
+    expect(movementsBeforeDelete.rows.length).toBe(1);
+
+    // Eliminamos el movimiento
+    const movementDeleted = await MovementModel.delete(movement.id);
+
+    // Verificamos que la funcion retorna un valor distinto de null
+    expect(movementDeleted).not.toBeNull();
+
+    let movementsAfterDelete = await MovementModel.getAll();
+
+    // No deben haber movimientos en la lista
+    expect(movementsAfterDelete.rows.length).toBe(0);
+});
+
+test('Eliminar movimiento inexistente', async () => {
+    const movementData = {
+        date: '05/05/2021',
+        amount: 50000.0,
+        type: MovementType.INCOME,
+        category: 'Sueldo',
+    };
+
+    // Creamos el movimiento
+    await MovementModel.create(movementData);
+
+    // Buscamos todos los movimientos
+    let movementsBeforeDelete = await MovementModel.getAll();
+
+    // Debe existir un movimiento en la lista
+    expect(movementsBeforeDelete.rows.length).toBe(1);
+
+    // Eliminamos movimiento inexistente
+    const movementDeleted = await MovementModel.delete(55);
+
+    // Verificamos que la funcion retorna null
+    expect(movementDeleted).toBeNull();
+
+    let movementsAfterDelete = await MovementModel.getAll();
+
+    // El movimiento debería seguir existiendo en la lista
+    expect(movementsAfterDelete.rows.length).toBe(movementsBeforeDelete.rows.length);
 });

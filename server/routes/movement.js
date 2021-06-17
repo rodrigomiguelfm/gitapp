@@ -32,6 +32,12 @@ router.get('/', function (req, res) {
         });
 });
 
+router.delete('/:id', function(req,res){
+    MovementModel.delete(req.params.id)
+    .then(() => res.send("Movimiento eliminado"))
+    .catch(()=> res.status(500).send('Error al borrar el movimiento'))
+ })
+
 /**
  * Endpoint para crear un movimiento.
  * Recibe los datos del movimiento en body.
