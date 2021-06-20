@@ -12,11 +12,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Added
  -   Agregar endpoint en la API para permitir borrar un movimiento. Conectar con la función ya realizada del modelo.
  -   Agregar campo description al modelo.
- -   Agregar signo + y -.
+ -   Agregar signo '+' y '-'.
 
  ## Fixed
  -   Arreglar el formato de los montos en las tablas. Si le pasan un número con “,” rompe el formato.
-
+ -   Arreglar ubicacion de los cuadros 'Gastos mensuales' y ' Ultimos movimientos'
 ## [1.1.0] - 2021-06-16
 
 ### Added
