@@ -1,21 +1,11 @@
 export function monefy(num) {
     if (!num) return '';
-
-    const numStr = String(num);
-    const points = numStr.length / 3;
-    const result = [];
-
-    for (let i = 0; i < points; i++) {
-        const s = -3 * (i + 1);
-        const e = -3 * i || undefined;
-        const chunk = numStr.slice(s, e);
-
-        result.push(chunk);
-    }
-
-    return result.reverse().join('.');
+   
+    var numero = num.toString().split(".");
+    numero[0]=numero[0].replace(/\B(?=(\d{3})+(?!\d))/g,".");
+    return numero.join(",");
+    
 }
-
 export function getRandomColor() {
     return `hsl(${360 * Math.random()}, ${25 + 70 * Math.random()}%, ${
         65 + 10 * Math.random()
