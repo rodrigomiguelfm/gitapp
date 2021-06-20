@@ -28,6 +28,7 @@ describe('Ingresos Test', () => {
 
         cy.get('[data-testid=movement]').should('have.length', 5);
     });
+
     it('Carga de monto con decimales', () => {
         cy.visit('/income');
         cy.get('input[name="description"]').type('Test Deberia cargar monto con decimales');
@@ -39,4 +40,17 @@ describe('Ingresos Test', () => {
 
         cy.get(':nth-child(5) > [data-testid=movement] > .level-right > :nth-child(1) > .has-text-success').should('include.text', '1.234,56')
     });
+
+    it('Deberia aparecer alerta de guardado', () => {
+        cy.visit('/income');
+        cy.get('input[name=date]').type('2021-05-30');
+        cy.get('input[name=category]').type('Extra');
+        cy.get('input[name=amount]').type('6000');
+        cy.contains('Guardar').click();
+        cy.on('window:alert', (str) => {
+          expect(str).to.equal('Se ha dado de alta el movimiento');
+
+        });
+      });
+      
 });

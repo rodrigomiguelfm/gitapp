@@ -5,6 +5,19 @@ beforeEach(async () => {
     await MovementModel.Movement.sync({ force: true });
 });
 
+test('Verificar que la fecha ingresada no se alterada', async () => {
+	const movementData = {
+        date: '10/10/2010',
+        amount: 50000.0,
+        type: MovementType.INCOME,
+        category: 'Sueldo',
+   };
+	
+	const fecha = new Date(movementData.date).toJSON()
+	const movement = await MovementModel.create(movementData);
+	expect(movement.date.toJSON()).toBe(fecha)
+})
+
 test('Crear movimiento', async () => {
     const movementData = {
         date: '04/01/2021',
@@ -20,6 +33,25 @@ test('Crear movimiento', async () => {
     expect(movement.type).toBe(movementData.type);
     expect(movement.category).toBe(movementData.category);
 });
+
+test('Crear movimiento con descripcion', async ()=>{
+    const movementData = {
+        date: '04/01/2021',
+        amount: 50000.0,
+        type: MovementType.INCOME,
+        category: 'Sueldo',
+        description: 'Descripcion 1 para el test',
+    };
+
+    // Creamos el movimiento
+    const movement = await MovementModel.create(movementData);
+
+    expect(movement.amount).toBe(movementData.amount);
+    expect(movement.type).toBe(movementData.type);
+    expect(movement.category).toBe(movementData.category);
+    expect(movement.description).toBe(movementData.description);
+
+})
 
 test('Crear movimiento sin tipo', async () => {
     const movementData = {
@@ -297,7 +329,7 @@ test('Eliminar movimiento inexistente', async () => {
         category: 'Sueldo',
     };
 
-    // Creamos un movimiento
+    // Creamos el movimiento
     await MovementModel.create(movementData);
 
     // Buscamos todos los movimientos
@@ -316,4 +348,62 @@ test('Eliminar movimiento inexistente', async () => {
 
     // El movimiento debería seguir existiendo en la lista
     expect(movements.rows.length).toBe(1);
+});
+
+test('Eliminar movimiento', async () => {
+    const movementData = {
+        date: '04/01/2021',
+        amount: 50000.0,
+        type: MovementType.INCOME,
+        category: 'Sueldo',
+    };
+
+    // Creamos el movimiento
+    const movement = await MovementModel.create(movementData);
+
+    // Buscamos todos los movimientos
+    let movementsBeforeDelete = await MovementModel.getAll();
+
+    // Debe existir un movimiento en la lista
+    expect(movementsBeforeDelete.rows.length).toBe(1);
+
+    // Eliminamos el movimiento
+    const movementDeleted = await MovementModel.delete(movement.id);
+
+    // Verificamos que la funcion retorna un valor distinto de null
+    expect(movementDeleted).not.toBeNull();
+
+    let movementsAfterDelete = await MovementModel.getAll();
+
+    // No deben haber movimientos en la lista
+    expect(movementsAfterDelete.rows.length).toBe(0);
+});
+
+test('Eliminar movimiento inexistente', async () => {
+    const movementData = {
+        date: '05/05/2021',
+        amount: 50000.0,
+        type: MovementType.INCOME,
+        category: 'Sueldo',
+    };
+
+    // Creamos el movimiento
+    await MovementModel.create(movementData);
+
+    // Buscamos todos los movimientos
+    let movementsBeforeDelete = await MovementModel.getAll();
+
+    // Debe existir un movimiento en la lista
+    expect(movementsBeforeDelete.rows.length).toBe(1);
+
+    // Eliminamos movimiento inexistente
+    const movementDeleted = await MovementModel.delete(55);
+
+    // Verificamos que la funcion retorna null
+    expect(movementDeleted).toBeNull();
+
+    let movementsAfterDelete = await MovementModel.getAll();
+
+    // El movimiento debería seguir existiendo en la lista
+    expect(movementsAfterDelete.rows.length).toBe(movementsBeforeDelete.rows.length);
 });

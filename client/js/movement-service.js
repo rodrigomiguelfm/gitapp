@@ -12,6 +12,12 @@ async function getIncomes() {
     return movements;
 }
 
+async function getExpenses() {
+    const resp = await fetch(`${BASE_URL}/movements?type=expense`);
+    const { movements } = await resp.json();
+    return movements;
+}
+
 async function update(movement) {
     const resp = await fetch(`${BASE_URL}/movements/${movement.id}`, {
         method: 'PUT',
@@ -32,7 +38,7 @@ async function create(movement) {
         },
         body: JSON.stringify(movement),
     });
-
+    alert("Se ha dado de alta el movimiento");
     return resp.json();
 }
 
@@ -49,4 +55,5 @@ export default {
     remove,
     getLast,
     getIncomes,
+    getExpenses,
 };
